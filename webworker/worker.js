@@ -1,4 +1,4 @@
-var URL = 'https://jsonplaceholder.typicode.com/posts' ;
+var url = 'https://jsonplaceholder.typicode.com/posts' ;
 
 function status(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -12,19 +12,19 @@ function json(response) {
   return response.json()
 }
 
-function fetchData(url) {
-    
-	fetch(url)
-	  .then(status)
-	  .then(json)
-	  .then(function(data) {
-		console.log('Request succeeded with JSON response', data);
-		postMessage(data);
-	  }).catch(function(error) {
-		console.log('Request failed', error);
-	  });
+self.onmessage = function(event) { 
+    if(event.data == "start"){
+		fetch(url)
+		  .then(status)
+		  .then(json)
+		  .then(function(data) {
+			console.log('Request succeeded with JSON response', data);
+			postMessage(data);
+		  }).catch(function(error) {
+			console.log('Request failed', error);
+		  });
+	}
 }
-  fetchData(URL);
 
 
 
